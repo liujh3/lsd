@@ -7,8 +7,14 @@ use crate::app::Cli;
 use crate::config_file::Config;
 
 /// The flag showing whether to print file type indicators.
-#[derive(Clone, Debug, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Debug, Copy, PartialEq, Eq)]
 pub struct Indicators(pub bool);
+
+impl Default for Indicators {
+    fn default() -> Self {
+        Self(true)
+    }
+}
 
 impl Configurable<Self> for Indicators {
     /// Get a potential `Indicators` value from [Cli].

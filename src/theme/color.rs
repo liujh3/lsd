@@ -279,11 +279,11 @@ pub struct GitStatus {
 impl Default for Permission {
     fn default() -> Self {
         Permission {
-            read: Color::DarkGreen,
-            write: Color::DarkYellow,
-            exec: Color::DarkRed,
+            read: Color::AnsiValue(183),
+            write: Color::AnsiValue(212),
+            exec: Color::AnsiValue(159),
             exec_sticky: Color::AnsiValue(5),
-            no_access: Color::AnsiValue(245), // Grey
+            no_access: Color::AnsiValue(210), // Red
             octal: Color::AnsiValue(6),
             acl: Color::DarkCyan,
             context: Color::Cyan,
@@ -344,9 +344,9 @@ impl Default for Symlink {
 impl Default for Date {
     fn default() -> Self {
         Date {
-            hour_old: Color::AnsiValue(40), // Green3
-            day_old: Color::AnsiValue(42),  // SpringGreen2
-            older: Color::AnsiValue(36),    // DarkCyan
+            hour_old: Color::AnsiValue(146), // Comment 20% Lighter
+            day_old: Color::AnsiValue(103),  // Comment
+            older: Color::AnsiValue(60),    // Current Line
         }
     }
 }
@@ -354,8 +354,8 @@ impl Default for Size {
     fn default() -> Self {
         Size {
             none: Color::AnsiValue(245),   // Grey
-            small: Color::AnsiValue(229),  // Wheat1
-            medium: Color::AnsiValue(216), // LightSalmon1
+            small: Color::AnsiValue(120),  // Green
+            medium: Color::AnsiValue(215), // Orange
             large: Color::AnsiValue(172),  // Orange3
         }
     }
@@ -371,7 +371,7 @@ impl Default for INode {
 impl Default for Links {
     fn default() -> Self {
         Links {
-            valid: Color::AnsiValue(13),    // Pink
+            valid: Color::AnsiValue(159),    // Cyan
             invalid: Color::AnsiValue(245), // Grey
         }
     }
@@ -404,8 +404,8 @@ impl Default for ColorTheme {
 impl ColorTheme {
     pub fn default_dark() -> Self {
         ColorTheme {
-            user: Color::AnsiValue(230),  // Cornsilk1
-            group: Color::AnsiValue(187), // LightYellow3
+            user: Color::AnsiValue(159),  // Cyan
+            group: Color::AnsiValue(231), // Foreground
             permission: Permission::default(),
             attributes: Attributes::default(),
             file_type: FileType::default(),
@@ -413,7 +413,7 @@ impl ColorTheme {
             size: Size::default(),
             inode: INode::default(),
             links: Links::default(),
-            tree_edge: Color::AnsiValue(245), // Grey
+            tree_edge: Color::AnsiValue(183), // Blue
             git_status: Default::default(),
         }
     }
@@ -426,30 +426,30 @@ mod tests {
 
     fn default_yaml() -> &'static str {
         r#"---
-user: 230
-group: 187
+user: 159
+group: 231
 permission:
-  read: dark_green
-  write: dark_yellow
-  exec: dark_red
+  read: 183
+  write: 212
+  exec: 159
   exec-sticky: 5
-  no-access: 245
+  no-access: 210
 date:
-  hour-old: 40
-  day-old: 42
-  older: 36
+  hour-old: 146
+  day-old: 103
+  older: 60
 size:
   none: 245
-  small: 229
-  medium: 216
+  small: 120
+  medium: 215
   large: 172
 inode:
   valid: 13
   invalid: 245
 links:
-  valid: 13
+  valid: 159
   invalid: 245
-tree-edge: 245
+tree-edge: 183
 "#
     }
 
@@ -480,7 +480,7 @@ tree-edge: 245
     fn test_empty_theme_return_default() {
         // Must contain one field at least
         // ref https://github.com/dtolnay/serde-yaml/issues/86
-        let empty_theme: ColorTheme = Theme::with_yaml("user: 230").unwrap(); // 230 is the default value
+        let empty_theme: ColorTheme = Theme::with_yaml("user: 159").unwrap(); // 159 is the default value
         let default_theme = ColorTheme::default_dark();
         assert_eq!(empty_theme, default_theme);
     }

@@ -7,8 +7,14 @@ use crate::app::Cli;
 use crate::config_file::Config;
 
 /// The flag showing whether to display block headers.
-#[derive(Clone, Debug, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Debug, Copy, PartialEq, Eq)]
 pub struct Header(pub bool);
+
+impl Default for Header {
+    fn default() -> Self {
+        Self(true)
+    }
+}
 
 impl Configurable<Self> for Header {
     /// Get a potential `Header` value from [Cli].

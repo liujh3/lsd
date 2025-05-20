@@ -179,13 +179,7 @@ impl Configurable<Self> for Blocks {
 impl Default for Blocks {
     fn default() -> Self {
         Self(vec![
-            Block::Permission,
-            Block::User,
-            Block::Group,
-            Block::Size,
-            Block::Date,
             Block::Name,
-            Block::Links,
         ])
     }
 }

@@ -92,8 +92,8 @@ impl<'de> de::Deserialize<'de> for ThemeOption {
 #[derive(Clone, Debug, Copy, PartialEq, Eq, Deserialize, Default)]
 #[serde(rename_all = "kebab-case")]
 pub enum ColorOption {
-    Always,
     #[default]
+    Always,
     Auto,
     Never,
 }

@@ -13,8 +13,8 @@ use serde::Deserialize;
 #[serde(rename_all = "kebab-case")]
 pub enum HyperlinkOption {
     Always,
-    Auto,
     #[default]
+    Auto,
     Never,
 }
 

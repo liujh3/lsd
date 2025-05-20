@@ -25,6 +25,7 @@ impl Blocks {
             Block::Size,
             Block::Date,
             Block::Name,
+            Block::Links,
         ])
     }
 
@@ -177,7 +178,15 @@ impl Configurable<Self> for Blocks {
 /// The default value for `Blocks` contains a [Vec] of [Name](Block::Name).
 impl Default for Blocks {
     fn default() -> Self {
-        Self(vec![Block::Name])
+        Self(vec![
+            Block::Permission,
+            Block::User,
+            Block::Group,
+            Block::Size,
+            Block::Date,
+            Block::Name,
+            Block::Links,
+        ])
     }
 }
 
@@ -379,9 +388,10 @@ mod test_blocks {
 
     #[test]
     fn test_from_cli_reversed_default() {
-        let argv = ["lsd", "--blocks", "name,date,size,group,user,permission"];
+        let argv = ["lsd", "--blocks", "links,name,date,size,group,user,permission"];
         let cli = Cli::try_parse_from(argv).unwrap();
         let test_blocks = Blocks(vec![
+            Block::Links,
             Block::Name,
             Block::Date,
             Block::Size,
